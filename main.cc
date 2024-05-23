@@ -1,15 +1,11 @@
 #include "DNP3.cc"
+#include "DNP3.h"
+#include <cstdint>
 
-int main() {
+extern "C" int LLVMFuzzerTestOneInput(const uint8_t* data, size_t size) {
 
-    int len = 10;
-    const u_char* data = nullptr;
-    bool orig = true;
-
-    DNP3_Base dnp3_base;
-
-    bool result = dnp3_base.ProcessData(len, data, orig);
+    analyzer::dnp3::DNP3_Base dnp3Base;
+    dnp3Base.ProcessData(size, data, false);
 
     return 0;
 }
-
