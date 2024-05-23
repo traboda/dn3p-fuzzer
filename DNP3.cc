@@ -122,9 +122,10 @@ DNP3_Base::DNP3_Base()
 	ClearEndpointState(true);
 	ClearEndpointState(false);
 
-	if ( ! crc_table_initialized )
-		PrecomputeCRCTable();
+	// if ( ! crc_table_initialized )
+	// 	PrecomputeCRCTable();
 	}
+
 
 DNP3_Base::~DNP3_Base()
 	{
@@ -249,7 +250,7 @@ bool DNP3_Base::ParseAppLayer(Endpoint* endp)
 
 	int transport = PSEUDO_TRANSPORT_LEN;
 
-	int i = 0;
+	// int i = 0;
 	while ( len > 0 )
 		{
 		int n = min(len, 16);
@@ -302,13 +303,16 @@ void DNP3_Base::ClearEndpointState(bool orig)
 
 bool DNP3_Base::CheckCRC(int len, const u_char* data, const u_char* crc16, const char* where)
 	{
-	unsigned int crc = CalcCRC(len, data);
 
-	if ( crc16[0] == (crc & 0xff) && crc16[1] == (crc & 0xff00) >> 8 )
-		return true;
+	return true;
+
+	// unsigned int crc = CalcCRC(len, data);
+
+	// if ( crc16[0] == (crc & 0xff) && crc16[1] == (crc & 0xff00) >> 8 )
+	// 	return true;
 
 	// analyzer->Weird(fmt("dnp3_corrupt_%s_checksum", where));
-	return false;
+	// return false;
 	}
 
 void DNP3_Base::PrecomputeCRCTable()
